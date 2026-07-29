@@ -23,7 +23,7 @@ fn main() -> ! {
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
 
-    circuit_3_pwm(peripherals);
+    circuit_4_motion_sensor(peripherals);
 }
 
 fn circuit_1_button_led(peripherals: Peripherals) -> ! {
@@ -96,5 +96,39 @@ fn circuit_3_pwm(peripherals: Peripherals) -> ! {
         info!("starting fade down");
         channel0.start_duty_fade(100, 0, 1000).unwrap();
         while channel0.is_duty_fade_running() {}
+    }
+}
+
+fn circuit_4_motion_sensor(peripherals: Peripherals) -> ! {
+    let buzzer_pin = peripherals.GPIO26;
+    let motion_sensor_pin = peripherals.GPIO27;
+
+    let mut buzzing = false;
+
+    let mut previous = Instant::now();
+
+    let interval_ms = 200;
+
+    // let button = Input::new(peripherals.GPIO4, InputConfig::default());
+    let mut buzzer = Output::new(buzzer_pin, Level::Low, OutputConfig::default());
+    let motion_sensor = Input::new(motion_sensor_pin, InputConfig::default());
+
+    loop {
+        if motion_sensor.is_high() {
+            buzzer.set_high();
+            if !buzzing {
+                info!("motion detected!")
+            }
+            previous = Instant::now();
+            buzzing = true;
+        } else {
+            if previous.elapsed().as_millis() > interval_ms {
+                buzzer.set_low();
+                if buzzing {
+                    info!("motion not detected for {} ms", interval_ms)
+                }
+                buzzing = false;
+            }
+        }
     }
 }
