@@ -10,11 +10,15 @@ pub fn main(peripherals: Peripherals) -> ! {
 
     loop {
         if button.is_high() {
+            if led.is_set_low() {
+                info!("setting led to high");
+            }
             led.set_high();
-            info!("led set to high");
         } else {
+            if led.is_set_high() {
+                info!("setting led to low");
+            }
             led.set_low();
-            info!("led set to low");
         }
 
         let delay_start = Instant::now();
