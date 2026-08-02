@@ -6,3 +6,4 @@ pub mod circuit_2_potentiometer_adc;
 pub mod circuit_3_led_pwm_fade;
 pub mod circuit_4_motion_buzzer;
 pub mod circuit_5_wifi_web_server;
+pub mod circuit_6_rgb_led;

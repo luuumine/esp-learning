@@ -17,5 +17,5 @@ fn main() -> ! {
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
 
-    circuit_5_wifi_web_server::main(peripherals)
+    circuit_6_rgb_led::main(peripherals)
 }

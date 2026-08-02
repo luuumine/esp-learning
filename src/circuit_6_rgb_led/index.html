@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 RGB Sliders</title>
+    <link rel="icon" href="data:,">
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #121212;
+            color: #fff;
+            padding: 2rem;
+            text-align: center;
+        }
+        .slider-container {
+            margin: 20px auto;
+            max-width: 300px;
+            text-align: left;
+        }
+        input[type=range] {
+            width: 100%;
+            margin-top: 10px;
+        }
+        #r-slider { accent-color: #ff4444; }
+        #g-slider { accent-color: #44ff44; }
+        #b-slider { accent-color: #4444ff; }
+        #color-box {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+            border-radius: 12px;
+            background: #000000;
+            border: 2px solid #555;
+            box-shadow: 0 0 15px rgba(255,255,255,0.1);
+        }
+        label span { font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>ESP32 RGB Control</h1>
+
+    <div id="color-box"></div>
+
+    <div class="slider-container">
+        <label>Red: <span id="r-val">0</span></label>
+        <input type="range" id="r-slider" min="0" max="255" value="0">
+    </div>
+
+    <div class="slider-container">
+        <label>Green: <span id="g-val">0</span></label>
+        <input type="range" id="g-slider" min="0" max="255" value="0">
+    </div>
+
+    <div class="slider-container">
+        <label>Blue: <span id="b-val">0</span></label>
+        <input type="range" id="b-slider" min="0" max="255" value="0">
+    </div>
+
+    <script>
+        const r = document.getElementById('r-slider');
+        const g = document.getElementById('g-slider');
+        const b = document.getElementById('b-slider');
+        const rVal = document.getElementById('r-val');
+        const gVal = document.getElementById('g-val');
+        const bVal = document.getElementById('b-val');
+        const box = document.getElementById('color-box');
+
+        let timeout = null;
+
+        function updateColor() {
+            // Update labels
+            rVal.innerText = r.value;
+            gVal.innerText = g.value;
+            bVal.innerText = b.value;
+
+            // Convert to HEX
+            const rHex = parseInt(r.value).toString(16).padStart(2, '0');
+            const gHex = parseInt(g.value).toString(16).padStart(2, '0');
+            const bHex = parseInt(b.value).toString(16).padStart(2, '0');
+            const hex = rHex + gHex + bHex;
+
+            // Update UI preview
+            box.style.background = '#' + hex;
+
+            // Throttle network requests to 100ms
+            if (timeout) clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                fetch('/?color=' + hex).catch(e => console.error("Network error:", e));
+            }, 100);
+        }
+
+        r.addEventListener('input', updateColor);
+        g.addEventListener('input', updateColor);
+        b.addEventListener('input', updateColor);
+    </script>
+
+</body>
+</html>
