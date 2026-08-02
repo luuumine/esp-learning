@@ -612,6 +612,7 @@ dependencies = [
  "critical-section",
  "embassy-executor",
  "embassy-net",
+ "embassy-time",
  "esp-alloc",
  "esp-backtrace",
  "esp-bootloader-esp-idf",

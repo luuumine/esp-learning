@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ESP32 Control</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+            background-color: #121212;
+            color: white;
+            margin-top: 50px;
+        }
+        button {
+            font-size: 24px;
+            padding: 20px 40px;
+            margin: 10px;
+            border-radius: 10px;
+            border: none;
+            background: #555555;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <h1>ESP32 Mission Control</h1>
+
+    <p>
+        <button id="toggle-btn" onclick="toggleLed()">Connecting...</button>
+    </p>
+
+    <script>
+        function toggleLed() {
+            fetch('/toggle').catch(e => console.error("Network error:", e));
+        }
+
+        // Check the state 4 times a second (250ms)
+        setInterval(() => {
+            fetch('/state')
+                .then(response => response.text())
+                .then(state => {
+                    const btn = document.getElementById('toggle-btn');
+                    if (state === "1") {
+                        btn.innerText = "LED is ON";
+                        btn.style.background = "green";
+                    } else {
+                        btn.innerText = "LED is OFF";
+                        btn.style.background = "firebrick";
+                    }
+                })
+                .catch(e => console.error("Could not fetch state:", e));
+        }, 250);
+    </script>
+</body>
+</html>
