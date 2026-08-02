@@ -8,3 +8,4 @@ pub mod circuit_4_motion_buzzer;
 pub mod circuit_5_wifi_web_server;
 pub mod circuit_6_rgb_led;
 pub mod circuit_8_state_sync;
+pub mod circuit_9_dht_sensor;

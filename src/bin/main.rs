@@ -17,5 +17,5 @@ fn main() -> ! {
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
 
-    circuit_8_state_sync::main(peripherals)
+    circuit_9_dht_sensor::main(peripherals)
 }

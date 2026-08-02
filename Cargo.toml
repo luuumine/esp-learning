@@ -31,6 +31,7 @@ embassy-executor = "0.10.0"
 embassy-net = { version = "0.8.0", features = ["dhcpv4", "medium-ethernet", "tcp"] }
 static_cell = "2.1.0"
 embassy-time = "0.5.1"
+embedded-dht-rs = { version = "0.5.0", features = ["dht11"] }
 
 # For fine tuning these settings, please refer to https://doc.rust-lang.org/cargo/reference/profiles.html
 [profile.dev]
