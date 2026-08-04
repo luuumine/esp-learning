@@ -17,5 +17,5 @@ fn main() -> ! {
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
 
-    circuit_a_i2c_screen::count(peripherals);
+    circuit_09_i2c_screen::count(peripherals);
 }

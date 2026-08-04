@@ -4,7 +4,7 @@ use esp_hal::ledc::channel::ChannelIFace;
 use esp_radio::wifi::Interface;
 use log::info;
 
-use crate::circuit_6_rgb_led::RGB;
+use crate::circuit_06_rgb_led::RGB;
 
 // background task handling incoming and outgoing network packets
 #[embassy_executor::task]

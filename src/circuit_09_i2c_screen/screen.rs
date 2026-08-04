@@ -9,7 +9,6 @@ use embedded_graphics::{
     text::{Alignment, Baseline, Text},
 };
 use esp_hal::{
-    delay::Delay,
     i2c::master::I2c,
     time::{Duration, Instant},
 };

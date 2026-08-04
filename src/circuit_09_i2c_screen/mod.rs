@@ -4,7 +4,7 @@ pub mod test_bus;
 
 use alloc::vec::Vec;
 use esp_hal::{
-    delay::{self, Delay},
+    delay::Delay,
     i2c::master::{Config, I2c, I2cAddress},
     peripherals::Peripherals,
 };
