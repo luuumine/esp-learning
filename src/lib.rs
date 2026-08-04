@@ -11,3 +11,5 @@ pub mod circuit_07_state_sync;
 pub mod circuit_08_dht_sensor;
 pub mod circuit_09_i2c_screen;
 pub mod circuit_10_passive_buzzer;
+
+pub mod music;
