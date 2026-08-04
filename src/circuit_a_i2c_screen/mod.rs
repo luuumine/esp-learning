@@ -1,8 +1,10 @@
 pub mod scan;
+mod screen;
 pub mod test_bus;
 
 use alloc::vec::Vec;
 use esp_hal::{
+    delay::{self, Delay},
     i2c::master::{Config, I2c, I2cAddress},
     peripherals::Peripherals,
 };
@@ -25,6 +27,23 @@ where
     f(&mut i2c);
 
     loop {}
+}
+
+pub fn main(peripherals: Peripherals) -> ! {
+    let delay = Delay::new();
+
+    with_i2c(peripherals, |i2c| {
+        info!("hello");
+        screen::hello_world(i2c);
+        delay.delay_millis(5000);
+        info!("gm");
+        screen::gm(i2c);
+    })
+}
+pub fn count(peripherals: Peripherals) -> ! {
+    with_i2c(peripherals, |i2c| {
+        screen::count(i2c);
+    })
 }
 
 pub fn run_scan(peripherals: Peripherals) -> ! {
