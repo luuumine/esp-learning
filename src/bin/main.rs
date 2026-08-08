@@ -17,5 +17,5 @@ fn main() -> ! {
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
 
-    music::play_pacman(peripherals);
+    screen_temp_sensor::main(peripherals);
 }

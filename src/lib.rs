@@ -13,3 +13,4 @@ pub mod circuit_09_i2c_screen;
 pub mod circuit_10_passive_buzzer;
 
 pub mod music;
+pub mod screen_temp_sensor;
