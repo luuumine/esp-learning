@@ -14,3 +14,4 @@ pub mod circuit_10_passive_buzzer;
 
 pub mod music;
 pub mod screen_temp_sensor;
+pub mod simon;
